@@ -14,9 +14,9 @@ class Section extends Component {
   }
 }
 
-StatisticSection.propTypes = {
-  title: propTypes.string,
-  children: propTypes.node,
+Section.propTypes = {
+  title: propTypes.string.isRequired,
+  children: propTypes.node.isRequired,
 };
 
 export default Section;
