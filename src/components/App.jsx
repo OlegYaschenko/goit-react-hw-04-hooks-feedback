@@ -6,29 +6,17 @@ import Section from 'components/Section/Section';
 import NotificationMessage from 'components/NotificationMessage/NotificationMessage';
 
 function App() {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  const [feedbackState, setFeedbackState] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
+  const { good, neutral, bad } = feedbackState;
 
   const handleAddFeedback = event => {
     const name = event.currentTarget.name;
 
-    switch (name) {
-      case 'good':
-        setGood(prevState => prevState + 1);
-        break;
-
-      case 'neutral':
-        setNeutral(prevState => prevState + 1);
-        break;
-
-      case 'bad':
-        setBad(prevState => prevState + 1);
-        break;
-
-      default:
-        break;
-    }
+    setFeedbackState(state => ({ ...state, [name]: state[name] + 1 }));
   };
 
   const countTotalFeedback = () => {
@@ -52,7 +40,7 @@ function App() {
     <div>
       <Section title="Please, leave your feedback">
         <FeedbackOptions
-          options={['good', 'neutral', 'bad']}
+          options={Object.keys(feedbackState)}
           onLeaveFeedback={handleAddFeedback}
         />
       </Section>
